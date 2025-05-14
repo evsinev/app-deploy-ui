@@ -1,10 +1,10 @@
-import Table, { TableProps } from '@cloudscape-design/components/table';
-import { ContentLayout, Header, StatusIndicator } from '@cloudscape-design/components';
-import { useCollection } from '@cloudscape-design/collection-hooks';
-import routing from '@routing';
-import { AppInstanceItem, useRemoteAppList } from '@/remote/app-remote';
-import CloudLink from '@/components/cloud-link/cloud-link';
 import { AppStatusIndicator } from '@/components/app-status-indicator';
+import CloudLink from '@/components/cloud-link/cloud-link';
+import { AppInstanceItem, useRemoteAppList } from '@/remote/app-remote';
+import { useCollection } from '@cloudscape-design/collection-hooks';
+import { ContentLayout, Header, StatusIndicator } from '@cloudscape-design/components';
+import Table, { TableProps } from '@cloudscape-design/components/table';
+import routing from '@routing';
 
 const defaultSorting = { sorting: {} };
 
@@ -46,14 +46,14 @@ export default function AppInstanceListPage() {
 
   return (
     <ContentLayout
-      header={(
+      header={
         <Header
           info={isValidating && <StatusIndicator type="loading" />}
           description="Application Instances with environments"
         >
           App Instances
         </Header>
-      )}
+      }
     >
       <Table
         {...collectionProps}

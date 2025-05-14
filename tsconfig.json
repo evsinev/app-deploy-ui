@@ -20,11 +20,8 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@routing": ["src/app/router/config.ts"],
+      "@routing": ["src/app/router/config.ts"]
     }
   },
-  "include": [
-    "src",
-    "rsbuild.config.ts",
-  ]
+  "include": ["src", "rsbuild.config.ts"]
 }

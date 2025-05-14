@@ -1,7 +1,7 @@
 export interface ErrorModelDetail {
   path?: string;
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  params?: string | object
+  params?: string | object;
 }
 
 /**

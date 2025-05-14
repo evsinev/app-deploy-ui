@@ -1,6 +1,6 @@
-import { Link as CloudscapeLink, LinkProps } from '@cloudscape-design/components';
-import { useNavigate } from 'react-router-dom';
 import { env } from '@/models/env';
+import { Link as CloudscapeLink, LinkProps } from '@cloudscape-design/components';
+import { useNavigate } from 'react-router';
 
 export default function CloudLink(props: LinkProps) {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function CloudLink(props: LinkProps) {
   return (
     <CloudscapeLink
       {...props}
-      href={actualHref!}
+      href={actualHref}
       onFollow={(e) => {
         e.preventDefault();
         onHref();

@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import DynamicForm, { DynamicFormData } from '@/components/dynamic-form';
+import { useState } from 'react';
 
 const defaultConfig: DynamicFormData = [
   {

@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Button, Header, SpaceBetween, StatusIndicator, Table } from '@cloudscape-design/components';
-import { TableProps } from '@cloudscape-design/components/table';
-import { useCollection } from '@cloudscape-design/collection-hooks';
-import { useNavigate } from 'react-router-dom';
-import routing from '@routing';
 import { useRemoteMutateRunDeploy } from '@/remote/deploy-remote';
 import { AppVersionItem, useRemoteVersionListAvailable } from '@/remote/version-remote';
+import { useCollection } from '@cloudscape-design/collection-hooks';
+import { Button, Header, SpaceBetween, StatusIndicator, Table } from '@cloudscape-design/components';
+import { TableProps } from '@cloudscape-design/components/table';
+import routing from '@routing';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const defaultSorting = { sorting: {} };
 
@@ -53,21 +53,26 @@ export default function AvailableVersionsPanel({ appId, instanceArn }: Props) {
 
   return (
     <Table
-      header={(
+      header={
         <Header
           info={isValidating && <StatusIndicator type="loading" />}
-          actions={(
+          actions={
             <SpaceBetween
               direction="horizontal"
               size="xs"
             >
-              <Button onClick={() => installVersion()} disabled={selectedItems?.length === 0}>Install version {`${selectedItems[0]?.appVersion || ''}`}</Button>
+              <Button
+                onClick={() => installVersion()}
+                disabled={selectedItems?.length === 0}
+              >
+                Install version {`${selectedItems[0]?.appVersion || ''}`}
+              </Button>
             </SpaceBetween>
-          )}
+          }
         >
           Available Versions
         </Header>
-      )}
+      }
       {...collectionProps}
       columnDefinitions={columnDefinitions}
       loading={isLoading}

@@ -1,25 +1,25 @@
 {
-  "name": "strilog-react",
+  "name": "app-deploy-ui",
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "lint": "tsc --noEmit && eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "dev": "rsbuild dev --open",
-    "build": "yarn lint && rsbuild build",
-    "preview": "rsbuild preview"
+    "build": "biome check && rsbuild build",
+    "lint": "biome check"
   },
   "dependencies": {
     "@cloudscape-design/components": "3.0.962",
     "@cloudscape-design/global-styles": "1.0.42",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-error-boundary": "^4.0.13",
-    "react-router-dom": "6.26.0",
+    "react-error-boundary": "4.0.13",
+    "react-router": "7.6.0",
     "swr": "2.2.5",
     "uuid": "10.0.0",
     "zod": "3.23.8"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@rsbuild/core": "1.0.12",
     "@rsbuild/plugin-react": "1.0.3",
     "@types/node": "22.1.0",
@@ -28,13 +28,7 @@
     "@types/uuid": "10.0.0",
     "@typescript-eslint/eslint-plugin": "7.15.0",
     "@typescript-eslint/parser": "7.15.0",
-    "eslint": "8.56.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-config-airbnb-typescript": "18.0.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-jsx-a11y": "6.9.0",
-    "eslint-plugin-react": "7.34.3",
-    "eslint-plugin-react-hooks": "4.6.2",
-    "typescript": "5.5.4"
-  }
+    "typescript": "5"
+  },
+  "packageManager": "yarn@1.22.22"
 }

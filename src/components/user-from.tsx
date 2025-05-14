@@ -1,6 +1,6 @@
+import { User } from '@/models/user';
 import { Button, Container, Form, FormField, Input, SpaceBetween } from '@cloudscape-design/components';
 import { useEffect, useState } from 'react';
-import { User } from '@/models/user';
 
 const newUser = {
   title: '',
@@ -20,12 +20,12 @@ interface Props {
 }
 
 export default function UserFrom(props: Props) {
-  const [user, setUser] = useState<User>(props.user || newUser as User);
+  const [user, setUser] = useState<User>(props.user || (newUser as User));
   const [errors, setErrors] = useState(defaultErrorState);
 
   // обнуляем форму при закрытии или применяем новые данные для формы
   useEffect(() => {
-    setUser(props.user || newUser as User);
+    setUser(props.user || (newUser as User));
     setErrors(defaultErrorState);
   }, [props.user]);
 
@@ -35,14 +35,18 @@ export default function UserFrom(props: Props) {
   };
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      props.onSubmit(user);
-    }}
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        props.onSubmit(user);
+      }}
     >
       <Form
-        actions={(
-          <SpaceBetween direction="horizontal" size="xs">
+        actions={
+          <SpaceBetween
+            direction="horizontal"
+            size="xs"
+          >
             {props.onCancel && (
               <Button
                 onClick={props.onCancel}
@@ -60,11 +64,13 @@ export default function UserFrom(props: Props) {
               Сохранить
             </Button>
           </SpaceBetween>
-        )}
-
+        }
       >
         <Container>
-          <SpaceBetween direction="vertical" size="l">
+          <SpaceBetween
+            direction="vertical"
+            size="l"
+          >
             <FormField label="Title">
               <Input
                 value={user.title}

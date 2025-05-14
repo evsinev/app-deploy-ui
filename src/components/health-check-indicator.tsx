@@ -1,5 +1,5 @@
-import { StatusIndicator } from '@cloudscape-design/components';
 import { HealthCheckResult } from '@/remote/app-remote';
+import { StatusIndicator } from '@cloudscape-design/components';
 
 type Props = {
   healthCheckResult: HealthCheckResult;

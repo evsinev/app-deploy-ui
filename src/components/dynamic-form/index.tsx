@@ -1,7 +1,7 @@
+import FormComponent from '@/components/dynamic-form/form-component';
 import { FormField, Grid, ToggleProps } from '@cloudscape-design/components';
 import { BaseChangeDetail } from '@cloudscape-design/components/input/interfaces';
 import { InputFormData } from './models/input-form-data';
-import FormComponent from '@/components/dynamic-form/form-component';
 
 export type DynamicFormData = InputFormData[];
 
@@ -16,9 +16,7 @@ interface DynamicFormProps {
 export default function DynamicForm(props: DynamicFormProps) {
   const setRow = (index: number, detail: BaseChangeDetail | ToggleProps.ChangeDetail) => {
     const newData = [...props.data];
-    newData[index].value = typeof newData[index].value === 'boolean'
-      ? (detail as ToggleProps.ChangeDetail).checked
-      : (detail as BaseChangeDetail).value;
+    newData[index].value = typeof newData[index].value === 'boolean' ? (detail as ToggleProps.ChangeDetail).checked : (detail as BaseChangeDetail).value;
     props.setData(newData);
 
     const newErrors = { ...props.errors };
@@ -28,11 +26,10 @@ export default function DynamicForm(props: DynamicFormProps) {
   };
 
   return (
-    <Grid
-      gridDefinition={props.data.map((row) => ({ colspan: row.colspan || 12 }))}
-    >
+    <Grid gridDefinition={props.data.map((row) => ({ colspan: row.colspan || 12 }))}>
       {props.data.map((row, index) => (
         <FormField
+          key={row.field}
           label={row.label}
           description={row.description}
           stretch

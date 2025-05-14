@@ -1,5 +1,5 @@
-import useSWR from 'swr';
 import { apiRequest } from '@/libs/api-request';
+import useSWR from 'swr';
 
 export type AvailableAppVersionsResponse = {
   appId: string;
@@ -15,12 +15,8 @@ export type AppVersionItem = {
 };
 
 export function useRemoteVersionListAvailable(appId: string) {
-  return useSWR(
-    `/version/list-available/${appId}`,
-    (url) => apiRequest<AvailableAppVersionsResponse>({ url, params: { appId } }),
-    {
-      keepPreviousData: true,
-      suspense: false,
-    },
-  );
+  return useSWR(`/version/list-available/${appId}`, (url) => apiRequest<AvailableAppVersionsResponse>({ url, params: { appId } }), {
+    keepPreviousData: true,
+    suspense: false,
+  });
 }

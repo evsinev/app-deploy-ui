@@ -1,11 +1,11 @@
-import { Container, Header, KeyValuePairs, StatusIndicator } from '@cloudscape-design/components';
 import { useRemoteAppStatusView } from '@/remote/app-status-remote';
+import { Container, Header, KeyValuePairs, StatusIndicator } from '@cloudscape-design/components';
 
 type Props = {
   arn: string;
 };
 
-function LazyData(isLoading : boolean, value: string | number | undefined) {
+function LazyData(isLoading: boolean, value: string | number | undefined) {
   if (isLoading) {
     return <StatusIndicator type="loading" />;
   }
@@ -16,18 +16,19 @@ function LazyData(isLoading : boolean, value: string | number | undefined) {
   return value;
 }
 
-export default function AppStatusPanel({ arn } : Props) {
+export default function AppStatusPanel({ arn }: Props) {
   const { data, isValidating, isLoading } = useRemoteAppStatusView(arn);
 
   return (
-    <Container header={(
-      <Header
-        variant="h2"
-        info={isValidating && <StatusIndicator type="loading" />}
-      >
-        App Status
-      </Header>
-    )}
+    <Container
+      header={
+        <Header
+          variant="h2"
+          info={isValidating && <StatusIndicator type="loading" />}
+        >
+          App Status
+        </Header>
+      }
     >
       <KeyValuePairs
         columns={3}
@@ -71,7 +72,6 @@ export default function AppStatusPanel({ arn } : Props) {
             label: 'Uptime',
             value: LazyData(isLoading, data?.uptimeFormatted),
           },
-
         ]}
       />
     </Container>

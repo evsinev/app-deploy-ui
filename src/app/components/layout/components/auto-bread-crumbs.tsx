@@ -1,9 +1,14 @@
 import { BreadcrumbGroup } from '@cloudscape-design/components';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { BreadcrumbGroupProps } from '@cloudscape-design/components/breadcrumb-group/interfaces';
 import routing from '@routing';
+import { useLocation, useNavigate } from 'react-router';
 
-function addLinkItem(items: { text: string; href: any }[], pathname: string, substring: string, title: string, path: string) {
+interface Item {
+  text: string;
+  href?: string;
+}
+
+function addLinkItem(items: Item[], pathname: string, substring: string, title: string, path: string) {
   if (pathname.includes(substring)) {
     items.push({
       text: title,
@@ -12,7 +17,7 @@ function addLinkItem(items: { text: string; href: any }[], pathname: string, sub
   }
 }
 
-function addLastSegmentItem(items: { text: string; href: any }[], pathname: string, substring: string) {
+function addLastSegmentItem(items: Item[], pathname: string, substring: string) {
   if (pathname.includes(substring)) {
     const lastSegment = pathname.split('/').pop();
     items.push({
@@ -22,8 +27,8 @@ function addLastSegmentItem(items: { text: string; href: any }[], pathname: stri
   }
 }
 
-function createItems(pathname : string) : readonly BreadcrumbGroupProps.Item[] {
-  const items : BreadcrumbGroupProps.Item[] = [
+function createItems(pathname: string): readonly BreadcrumbGroupProps.Item[] {
+  const items: BreadcrumbGroupProps.Item[] = [
     {
       text: 'Home',
       href: '/',

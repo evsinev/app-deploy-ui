@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import routing from '@routing';
-import { SideNavigation, SideNavigationProps } from '@cloudscape-design/components';
-import { useNavigate } from 'react-router-dom';
 import { env } from '@/models/env';
+import { SideNavigation, SideNavigationProps } from '@cloudscape-design/components';
+import routing from '@routing';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
-function toHref(aRouterLink : string) {
+function toHref(aRouterLink: string) {
   return env.PUBLIC_BASE_PATH + aRouterLink;
 }
 const navConfig: ReadonlyArray<SideNavigationProps.Item> = [

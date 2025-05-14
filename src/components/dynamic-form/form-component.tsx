@@ -1,6 +1,6 @@
 import { Input, Toggle, ToggleProps } from '@cloudscape-design/components';
-import { NonCancelableEventHandler } from '@cloudscape-design/components/internal/events';
 import { BaseChangeDetail } from '@cloudscape-design/components/input/interfaces';
+import { NonCancelableEventHandler } from '@cloudscape-design/components/internal/events';
 import { InputFormData } from './models/input-form-data';
 
 interface FormComponentProps {

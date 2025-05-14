@@ -1,10 +1,10 @@
-import Table, { TableProps } from '@cloudscape-design/components/table';
-import { ContentLayout, Header, StatusIndicator } from '@cloudscape-design/components';
-import { useCollection } from '@cloudscape-design/collection-hooks';
-import routing from '@routing';
-import CloudLink from '@/components/cloud-link/cloud-link';
 import { AppStatusIndicator } from '@/components/app-status-indicator';
+import CloudLink from '@/components/cloud-link/cloud-link';
 import { DeployListItem, useRemoteDeployList } from '@/remote/deploy-remote';
+import { useCollection } from '@cloudscape-design/collection-hooks';
+import { ContentLayout, Header, StatusIndicator } from '@cloudscape-design/components';
+import Table, { TableProps } from '@cloudscape-design/components/table';
+import routing from '@routing';
 
 const defaultSorting = { sorting: {} };
 
@@ -60,14 +60,14 @@ export default function DeployListPage() {
 
   return (
     <ContentLayout
-      header={(
+      header={
         <Header
           info={isValidating && <StatusIndicator type="loading" />}
           description="Recent Deploments (max 50)"
         >
           Deployments
         </Header>
-      )}
+      }
     >
       <Table
         {...collectionProps}

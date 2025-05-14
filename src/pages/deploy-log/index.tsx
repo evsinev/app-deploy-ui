@@ -1,9 +1,9 @@
-import { useParams } from 'react-router-dom';
+import CloudLink from '@/components/cloud-link/cloud-link';
+import DeployLogEventsPanel from '@/pages/deploy-log/deploy-log-events-panel';
+import { useRemoteDeployView } from '@/remote/deploy-remote';
 import { Container, ContentLayout, Header, KeyValuePairs, SpaceBetween, StatusIndicator } from '@cloudscape-design/components';
 import routing from '@routing';
-import { useRemoteDeployView } from '@/remote/deploy-remote';
-import DeployLogEventsPanel from '@/pages/deploy-log/deploy-log-events-panel';
-import CloudLink from '@/components/cloud-link/cloud-link';
+import { useParams } from 'react-router';
 
 export default function DeployLogPage() {
   const { deployId } = useParams() as { deployId: string };
@@ -11,14 +11,14 @@ export default function DeployLogPage() {
 
   return (
     <ContentLayout
-      header={(
+      header={
         <Header
           info={isValidating && <StatusIndicator type="loading" />}
           description={`Deploy: ${deployId}`}
         >
           Deployment logs
         </Header>
-      )}
+      }
     >
       <SpaceBetween size="xl">
         <Container header={<Header variant="h2">Deploy info</Header>}>
@@ -27,7 +27,7 @@ export default function DeployLogPage() {
             items={[
               {
                 label: 'Application',
-                value: data!.appId,
+                value: data?.appId,
               },
 
               {
@@ -52,15 +52,23 @@ export default function DeployLogPage() {
 
               {
                 label: 'Status',
-                value: <StatusIndicator iconAriaLabel={data?.status} type={data?.statusIndicator}>{data?.statusErrorMessage}</StatusIndicator>,
+                value: (
+                  <StatusIndicator
+                    iconAriaLabel={data?.status}
+                    type={data?.statusIndicator}
+                  >
+                    {data?.statusErrorMessage}
+                  </StatusIndicator>
+                ),
               },
-
             ]}
           />
         </Container>
 
-        <DeployLogEventsPanel logs={data?.logs} isValidating={isValidating} />
-
+        <DeployLogEventsPanel
+          logs={data?.logs}
+          isValidating={isValidating}
+        />
       </SpaceBetween>
     </ContentLayout>
   );

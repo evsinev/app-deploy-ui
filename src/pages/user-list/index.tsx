@@ -1,13 +1,13 @@
-import routing from '@routing';
-import { BreadcrumbGroup, Button, Container, SpaceBetween, Table, TableProps } from '@cloudscape-design/components';
-import { useState } from 'react';
-import { NonCancelableEventHandler } from '@cloudscape-design/components/internal/events';
-import { useUserList } from '@/remote/user';
 import { User } from '@/models/user';
 import CreateUser from '@/pages/user-list/components/create-user';
+import { useUserList } from '@/remote/user';
+import { BreadcrumbGroup, Button, Container, SpaceBetween, Table, TableProps } from '@cloudscape-design/components';
+import { NonCancelableEventHandler } from '@cloudscape-design/components/internal/events';
+import routing from '@routing';
+import { useState } from 'react';
 import ColumnDisplayProperties = TableProps.ColumnDisplayProperties;
-import { compare } from '@/libs/sorting';
 import Link from '@/components/link';
+import { compare } from '@/libs/sorting';
 
 const columns: ReadonlyArray<ColumnDisplayProperties> = [
   {
@@ -65,12 +65,14 @@ export default function UserList() {
   const [sortingDescending, setSortingDescending] = useState<boolean>(true);
 
   const rows = data?.map((row) => ({ ...row })) || [];
-  const sortingRows = rows.sort((a, b) => compare({
-    field: sortingField,
-    isDesc: sortingDescending,
-    a,
-    b,
-  }));
+  const sortingRows = rows.sort((a, b) =>
+    compare({
+      field: sortingField,
+      isDesc: sortingDescending,
+      a,
+      b,
+    }),
+  );
 
   const changeSorting: NonCancelableEventHandler<TableProps.SortingState<User>> = ({ detail }) => {
     const { sortingColumn, isDescending } = detail;
@@ -83,11 +85,12 @@ export default function UserList() {
   return (
     <>
       <Container variant="stacked">
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          // простите за это, но на этом ui фреймворке это наиболее безболезненно.
-        }}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            // простите за это, но на этом ui фреймворке это наиболее безболезненно.
+          }}
         >
           <BreadcrumbGroup
             items={[
@@ -97,9 +100,15 @@ export default function UserList() {
               },
             ]}
             ariaLabel="Breadcrumbs"
-          /> <SpaceBetween direction="horizontal" size="s"> <Button>View details</Button> <Button>Edit</Button> <Button>Delete</Button> </SpaceBetween>
+          />{' '}
+          <SpaceBetween
+            direction="horizontal"
+            size="s"
+          >
+            {' '}
+            <Button>View details</Button> <Button>Edit</Button> <Button>Delete</Button>{' '}
+          </SpaceBetween>
         </div>
-
       </Container>
 
       <Table

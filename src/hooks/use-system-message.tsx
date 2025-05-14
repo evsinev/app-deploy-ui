@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Alert } from '@cloudscape-design/components';
+import { useEffect, useState } from 'react';
 
 interface SystemMessageProps {
   message: string;
@@ -19,29 +19,27 @@ export default function useSystemMessage() {
 
   const showMessage = (props: SystemMessageProps) => setState(props);
 
-  const message = state
-    ? (
-      <div
-        style={{
-          position: 'fixed',
-          zIndex: 1000,
-          maxWidth: '280px',
-          top: 30,
-          left: 0,
-          right: 0,
-          margin: '0 auto',
-          alignItems: 'center',
-        }}
+  const message = state ? (
+    <div
+      style={{
+        position: 'fixed',
+        zIndex: 1000,
+        maxWidth: '280px',
+        top: 30,
+        left: 0,
+        right: 0,
+        margin: '0 auto',
+        alignItems: 'center',
+      }}
+    >
+      <Alert
+        type={state.severity}
+        onDismiss={() => setState(undefined)}
       >
-        <Alert
-          statusIconAriaLabel={state.severity}
-          onDismiss={() => setState(undefined)}
-        >
-          {state.message}
-        </Alert>
-      </div>
-    )
-    : null;
+        {state.message}
+      </Alert>
+    </div>
+  ) : null;
 
   return {
     showMessage,

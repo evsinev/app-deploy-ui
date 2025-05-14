@@ -3,10 +3,8 @@ import { useUserListPolling } from '@/remote/user';
 export default function RefreshTest() {
   const { data } = useUserListPolling();
 
-  // eslint-disable-next-line no-console
+  // biome-ignore lint/suspicious/noConsoleLog: <explanation>
   console.log('refresh', data);
 
-  return (
-    <div>refresh</div>
-  );
+  return <div>refresh</div>;
 }

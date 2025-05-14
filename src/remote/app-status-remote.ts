@@ -1,5 +1,5 @@
-import useSWR from 'swr';
 import { apiRequest } from '@/libs/api-request';
+import useSWR from 'swr';
 
 export type AppStatusResponse = {
   type: 'OK' | 'ERROR' | 'NOT_MATCHED';
@@ -13,12 +13,8 @@ export type AppStatusResponse = {
 };
 
 export function useRemoteAppStatusView(arn: string) {
-  return useSWR(
-    `/app-status/instance/${arn}`,
-    (url) => apiRequest<AppStatusResponse>({ url, params: { arn } }),
-    {
-      keepPreviousData: true,
-      suspense: false,
-    },
-  );
+  return useSWR(`/app-status/instance/${arn}`, (url) => apiRequest<AppStatusResponse>({ url, params: { arn } }), {
+    keepPreviousData: true,
+    suspense: false,
+  });
 }

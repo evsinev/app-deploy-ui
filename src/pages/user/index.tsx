@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import routing from '@routing';
-import { BreadcrumbGroup, Button, Container, Header, SpaceBetween } from '@cloudscape-design/components';
-import { useUserUpdate, useUser, useUserList, useUserDelete } from '@/remote/user';
-import { User } from '@/models/user';
 import UserFrom from '@/components/user-from';
 import { env } from '@/models/env';
+import { User } from '@/models/user';
+import { useUser, useUserDelete, useUserList, useUserUpdate } from '@/remote/user';
+import { BreadcrumbGroup, Button, Container, Header, SpaceBetween } from '@cloudscape-design/components';
+import routing from '@routing';
+import { useNavigate } from 'react-router';
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -38,10 +38,11 @@ export default function UserPage() {
           ariaLabel="Breadcrumbs"
         />
         <Header>
-          <SpaceBetween size="xxl" direction="horizontal">
-            <div>
-              Пользователь {user?.title}
-            </div>
+          <SpaceBetween
+            size="xxl"
+            direction="horizontal"
+          >
+            <div>Пользователь {user?.title}</div>
             <Button
               onClick={onDelete}
               loading={isLoading}

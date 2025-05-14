@@ -1,11 +1,11 @@
-import { Button, Container, Form, FormField, Input, SpaceBetween } from '@cloudscape-design/components';
-import { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import routing from '@routing';
 import { useLogin } from '@/remote/login';
+import { Button, Container, Form, FormField, Input, SpaceBetween } from '@cloudscape-design/components';
+import routing from '@routing';
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router';
 
-const loginValidate = (login: string) => (!!login && login.length > 0);
-const passwordValidate = (password: string) => (!!password && password.length > 0);
+const loginValidate = (login: string) => !!login && login.length > 0;
+const passwordValidate = (password: string) => !!password && password.length > 0;
 
 interface LoginErrors {
   login?: boolean;
@@ -58,42 +58,67 @@ export default function Login() {
       <Form
         errorIconAriaLabel="Login"
         errorText={errors?.invalidPair ? 'Invalid login and password pair' : undefined}
-        actions={(
-          <SpaceBetween direction="horizontal" size="xs">
-            <Button variant="primary" loading={isLoading} disabled={disabled}>Login</Button>
+        actions={
+          <SpaceBetween
+            direction="horizontal"
+            size="xs"
+          >
+            <Button
+              variant="primary"
+              loading={isLoading}
+              disabled={disabled}
+            >
+              Login
+            </Button>
           </SpaceBetween>
-        )}
+        }
       >
         <Container>
-          <SpaceBetween direction="vertical" size="l">
-            <FormField label="Login" stretch>
+          <SpaceBetween
+            direction="vertical"
+            size="l"
+          >
+            <FormField
+              label="Login"
+              stretch
+            >
               <Input
                 value={login}
                 onChange={({ detail }) => setLogin(detail.value)}
-                onBlur={() => setErrors({
-                  ...errors,
-                  login: !loginValidate(login),
-                })}
+                onBlur={() =>
+                  setErrors({
+                    ...errors,
+                    login: !loginValidate(login),
+                  })
+                }
                 type="text"
                 invalid={errors.login}
                 disabled={isLoading}
                 autoFocus
               />
             </FormField>
-            <FormField label="Password" stretch>
+            <FormField
+              label="Password"
+              stretch
+            >
               <Input
                 value={password}
                 onChange={({ detail }) => setPassword(detail.value)}
-                onBlur={() => setErrors({
-                  ...errors,
-                  password: !passwordValidate(password),
-                })}
+                onBlur={() =>
+                  setErrors({
+                    ...errors,
+                    password: !passwordValidate(password),
+                  })
+                }
                 type="password"
                 invalid={errors.password}
                 disabled={isLoading}
               />
             </FormField>
-            <FormField label="OTP" stretch>
+            <FormField
+              label="OTP"
+              stretch
+            >
               <Input
                 value={otp}
                 onChange={({ detail }) => {
@@ -102,10 +127,12 @@ export default function Login() {
                   }
                   setOtp(detail.value);
                 }}
-                onBlur={() => setErrors({
-                  ...errors,
-                  otp: otp.length !== 6,
-                })}
+                onBlur={() =>
+                  setErrors({
+                    ...errors,
+                    otp: otp.length !== 6,
+                  })
+                }
                 type="number"
                 invalid={errors.otp}
                 disabled={isLoading}

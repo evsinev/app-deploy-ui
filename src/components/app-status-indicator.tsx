@@ -1,5 +1,5 @@
-import { StatusIndicator } from '@cloudscape-design/components';
 import { useRemoteAppStatusView } from '@/remote/app-status-remote';
+import { StatusIndicator } from '@cloudscape-design/components';
 
 type Props = {
   arn: string;
@@ -15,13 +15,34 @@ export function AppStatusIndicator({ arn }: Props) {
   const type = data?.type;
 
   if (type === 'OK') {
-    return <StatusIndicator type="success" colorOverride={isValidating ? 'grey' : undefined}>{data?.appVersion}</StatusIndicator>;
+    return (
+      <StatusIndicator
+        type="success"
+        colorOverride={isValidating ? 'grey' : undefined}
+      >
+        {data?.appVersion}
+      </StatusIndicator>
+    );
   }
 
   if (type === 'ERROR') {
-    return <StatusIndicator type="error" colorOverride={isValidating ? 'grey' : undefined}>{data?.errorMessage}</StatusIndicator>;
+    return (
+      <StatusIndicator
+        type="error"
+        colorOverride={isValidating ? 'grey' : undefined}
+      >
+        {data?.errorMessage}
+      </StatusIndicator>
+    );
   }
 
   // NOT_MATCHED
-  return <StatusIndicator type="warning" colorOverride={isValidating ? 'grey' : undefined}>{data?.errorMessage}</StatusIndicator>;
+  return (
+    <StatusIndicator
+      type="warning"
+      colorOverride={isValidating ? 'grey' : undefined}
+    >
+      {data?.errorMessage}
+    </StatusIndicator>
+  );
 }

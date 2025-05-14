@@ -1,5 +1,5 @@
-import useSWR from 'swr';
 import { apiRequest } from '@/libs/api-request';
+import useSWR from 'swr';
 
 export type HealthCheckResult = {
   type: 'OK' | 'ERROR' | 'NO_HEALTH_CHECK_URL';
@@ -29,23 +29,15 @@ export type AppViewResponse = {
 };
 
 export function useRemoteAppList(filter: string) {
-  return useSWR(
-    `/app/list/${filter}`,
-    (url) => apiRequest<AppListResponse>({ url, params: { filter } }),
-    {
-      keepPreviousData: true,
-      suspense: true,
-    },
-  );
+  return useSWR(`/app/list/${filter}`, (url) => apiRequest<AppListResponse>({ url, params: { filter } }), {
+    keepPreviousData: true,
+    suspense: true,
+  });
 }
 
 export function useRemoteAppView(arn: string) {
-  return useSWR(
-    `/app/view/${arn}`,
-    (url) => apiRequest<AppViewResponse>({ url, params: { arn } }),
-    {
-      keepPreviousData: true,
-      suspense: true,
-    },
-  );
+  return useSWR(`/app/view/${arn}`, (url) => apiRequest<AppViewResponse>({ url, params: { arn } }), {
+    keepPreviousData: true,
+    suspense: true,
+  });
 }

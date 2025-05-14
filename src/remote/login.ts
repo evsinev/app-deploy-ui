@@ -6,11 +6,8 @@ export interface LoginParams {
   otp: string;
 }
 
-const loginMock = (params: { url: string, params: LoginParams, method: string }) => !!params;
+const loginMock = (params: { url: string; params: LoginParams; method: string }) => !!params;
 
 export function useLogin() {
-  return useSWRMutation<boolean, Error, string, LoginParams>(
-    '/login',
-    (url, { arg }) => loginMock({ url, params: arg, method: 'POST' }),
-  );
+  return useSWRMutation<boolean, Error, string, LoginParams>('/login', (url, { arg }) => loginMock({ url, params: arg, method: 'POST' }));
 }

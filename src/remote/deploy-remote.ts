@@ -1,7 +1,7 @@
+import { apiRequest } from '@/libs/api-request';
+import { StatusIndicatorProps } from '@cloudscape-design/components/status-indicator/internal';
 import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
-import { StatusIndicatorProps } from '@cloudscape-design/components/status-indicator/internal';
-import { apiRequest } from '@/libs/api-request';
 
 export type RunDeployRequest = {
   instanceArn: string;
@@ -50,31 +50,20 @@ export type DeployListItem = {
 };
 
 export function useRemoteMutateRunDeploy() {
-  return useSWRMutation<RunDeployResponse, Error, string, RunDeployRequest>(
-    '/deploy/run-deploy',
-    (url, { arg }) => apiRequest<RunDeployResponse>({ url, params: arg }),
-  );
+  return useSWRMutation<RunDeployResponse, Error, string, RunDeployRequest>('/deploy/run-deploy', (url, { arg }) => apiRequest<RunDeployResponse>({ url, params: arg }));
 }
 
 export function useRemoteDeployView(deployId: string) {
-  return useSWR(
-    `/deploy/view-deploy/${deployId}`,
-    (url) => apiRequest<DeployViewResponse>({ url, params: { deployId } }),
-    {
-      refreshInterval: 5_000,
-      keepPreviousData: true,
-      suspense: true,
-    },
-  );
+  return useSWR(`/deploy/view-deploy/${deployId}`, (url) => apiRequest<DeployViewResponse>({ url, params: { deployId } }), {
+    refreshInterval: 5_000,
+    keepPreviousData: true,
+    suspense: true,
+  });
 }
 
 export function useRemoteDeployList() {
-  return useSWR(
-    '/deploy/deploy-list',
-    (url) => apiRequest<DeployListResponse>({ url, params: { count: 50 } }),
-    {
-      keepPreviousData: true,
-      suspense: true,
-    },
-  );
+  return useSWR('/deploy/deploy-list', (url) => apiRequest<DeployListResponse>({ url, params: { count: 50 } }), {
+    keepPreviousData: true,
+    suspense: true,
+  });
 }

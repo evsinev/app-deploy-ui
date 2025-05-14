@@ -9,11 +9,7 @@ export default function CreateButton(props: { onClick: () => void }) {
         right: '30px',
       }}
     >
-      <Button
-        onClick={props.onClick}
-      >
-        Добавить пользователя
-      </Button>
+      <Button onClick={props.onClick}>Добавить пользователя</Button>
     </div>
   );
 }

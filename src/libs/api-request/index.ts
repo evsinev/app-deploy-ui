@@ -1,17 +1,15 @@
-'use client';
-
-import routing from '@routing';
-import { env } from '@/models/env';
 import { RequestError } from '@/components/error/models/error-model';
 import { RequestErrorModel } from '@/components/error/models/types';
+import { env } from '@/models/env';
+import routing from '@routing';
 
 interface ClientPostProps {
   url: string;
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  params?: any;
+  params?: unknown;
   options?: {
     proxy: boolean;
-  }
+  };
 }
 
 const getFetchData = async <T>(response: Response): Promise<T> => {
@@ -28,7 +26,7 @@ const getFetchData = async <T>(response: Response): Promise<T> => {
   }
   try {
     return JSON.parse(text) as T;
-  } catch (e) {
+  } catch (_e) {
     return text as T;
   }
 };
@@ -36,11 +34,7 @@ const getFetchData = async <T>(response: Response): Promise<T> => {
 export async function apiRequest<T>(props: ClientPostProps): Promise<T> {
   const url = env.PUBLIC_API_BASE_URL + props.url;
 
-  const body = props.method === 'GET'
-    ? undefined
-    : props.params
-      ? JSON.stringify(props.params)
-      : '{}';
+  const body = props.method === 'GET' ? undefined : props.params ? JSON.stringify(props.params) : '{}';
 
   const response = await fetch(url, {
     method: props.method || 'POST',

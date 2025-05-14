@@ -15,7 +15,7 @@ export default function ErrorWidget(props: ErrorMessageProps) {
   return (
     <Alert
       onDismiss={onClose}
-      statusIconAriaLabel="error"
+      type="error"
       header="Error"
     >
       <div data-name="error-id">

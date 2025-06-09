@@ -17,6 +17,5 @@ export type AppVersionItem = {
 export function useRemoteVersionListAvailable(appId: string) {
   return useSWR(`/version/list-available/${appId}`, (url) => apiRequest<AvailableAppVersionsResponse>({ url, params: { appId } }), {
     keepPreviousData: true,
-    suspense: false,
   });
 }

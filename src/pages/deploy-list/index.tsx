@@ -7,7 +7,7 @@ import { ContentLayout, Header, PropertyFilter, StatusIndicator } from '@cloudsc
 import Table from '@cloudscape-design/components/table';
 
 export default function DeployListPage() {
-  const { data: unsortedApps, isValidating } = useRemoteDeployList();
+  const { data: unsortedApps, isLoading } = useRemoteDeployList();
 
   const { getQueryParam, setQueryParam } = useQueryParams();
   const {
@@ -26,7 +26,7 @@ export default function DeployListPage() {
     <ContentLayout
       header={
         <Header
-          info={isValidating && <StatusIndicator type="loading" />}
+          info={isLoading && <StatusIndicator type="loading" />}
           description="Recent Deploments (max 50)"
         >
           Deployments
@@ -37,6 +37,7 @@ export default function DeployListPage() {
         {...collectionProps}
         columnDefinitions={DEPLOY_LIST_COLUMN_DEFINITIONS}
         items={deploys}
+        loading={isLoading}
         filter={
           <PropertyFilter
             {...propertyFilterProps}

@@ -35,11 +35,11 @@ function createItems(pathname: string): readonly BreadcrumbGroupProps.Item[] {
     },
   ];
 
-  addLinkItem(items, pathname, '/app-instance', 'App Instances', routing.home);
-  addLastSegmentItem(items, pathname, '/app-instance/');
+  addLinkItem(items, pathname, routing.home, 'App Instances', routing.home);
+  addLastSegmentItem(items, pathname, routing.home);
 
-  addLinkItem(items, pathname, '/deploys', 'Deploys', routing.deployList);
-  addLastSegmentItem(items, pathname, '/deploys/');
+  addLinkItem(items, pathname, routing.deployList, 'Deploys', routing.deployList);
+  addLastSegmentItem(items, pathname, routing.deployList);
 
   return items;
 }

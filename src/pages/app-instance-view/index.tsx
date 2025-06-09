@@ -44,10 +44,12 @@ export default function AppInstanceViewPage() {
 
         <AppStatusPanel arn={arn} />
 
-        <AvailableVersionsPanel
-          appId={instance.appId}
-          instanceArn={instance?.instanceArn}
-        />
+        {instance?.appId && (
+          <AvailableVersionsPanel
+            appId={instance.appId}
+            instanceArn={instance.instanceArn}
+          />
+        )}
       </SpaceBetween>
     </ContentLayout>
   );

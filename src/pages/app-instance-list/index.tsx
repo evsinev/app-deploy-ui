@@ -7,7 +7,7 @@ import { ContentLayout, Header, PropertyFilter, StatusIndicator } from '@cloudsc
 import Table from '@cloudscape-design/components/table';
 
 export default function AppInstanceListPage() {
-  const { data: unsortedApps, isValidating } = useRemoteAppList('');
+  const { data: unsortedApps, isLoading } = useRemoteAppList('');
   const { getQueryParam, setQueryParam } = useQueryParams();
   const {
     items: apps,
@@ -25,7 +25,7 @@ export default function AppInstanceListPage() {
     <ContentLayout
       header={
         <Header
-          info={isValidating && <StatusIndicator type="loading" />}
+          info={isLoading && <StatusIndicator type="loading" />}
           description="Application Instances with environments"
         >
           App Instances
@@ -36,6 +36,7 @@ export default function AppInstanceListPage() {
         {...collectionProps}
         columnDefinitions={APP_LIST_COLUMN_DEFINITIONS}
         items={apps}
+        loading={isLoading}
         filter={
           <PropertyFilter
             {...propertyFilterProps}

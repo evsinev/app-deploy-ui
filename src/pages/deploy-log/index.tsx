@@ -37,7 +37,7 @@ export default function DeployLogPage() {
 
               {
                 label: 'Instance',
-                value: <CloudLink href={routing.appInstanceView.replace(':arn', data?.instanceArn)}>{data?.instanceName}</CloudLink>,
+                value: <CloudLink href={routing.appInstanceView.replace(':arn', data?.instanceArn || '')}>{data?.instanceName}</CloudLink>,
               },
 
               {
@@ -65,10 +65,12 @@ export default function DeployLogPage() {
           />
         </Container>
 
-        <DeployLogEventsPanel
-          logs={data?.logs}
-          isValidating={isValidating}
-        />
+        {data?.logs && (
+          <DeployLogEventsPanel
+            logs={data?.logs}
+            isValidating={isValidating}
+          />
+        )}
       </SpaceBetween>
     </ContentLayout>
   );

@@ -57,13 +57,11 @@ export function useRemoteDeployView(deployId: string) {
   return useSWR(`/deploy/view-deploy/${deployId}`, (url) => apiRequest<DeployViewResponse>({ url, params: { deployId } }), {
     refreshInterval: 5_000,
     keepPreviousData: true,
-    suspense: true,
   });
 }
 
 export function useRemoteDeployList() {
   return useSWR('/deploy/deploy-list', (url) => apiRequest<DeployListResponse>({ url, params: { count: 50 } }), {
     keepPreviousData: true,
-    suspense: true,
   });
 }

@@ -31,13 +31,11 @@ export type AppViewResponse = {
 export function useRemoteAppList(filter: string) {
   return useSWR(`/app/list/${filter}`, (url) => apiRequest<AppListResponse>({ url, params: { filter } }), {
     keepPreviousData: true,
-    suspense: true,
   });
 }
 
 export function useRemoteAppView(arn: string) {
   return useSWR(`/app/view/${arn}`, (url) => apiRequest<AppViewResponse>({ url, params: { arn } }), {
     keepPreviousData: true,
-    suspense: true,
   });
 }

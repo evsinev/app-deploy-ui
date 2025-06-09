@@ -7,7 +7,6 @@ import useSWRMutation from 'swr/mutation';
 
 const HOUR = 3600000;
 const STATIC_DATA = {
-  suspense: true,
   keepPreviousData: true,
   dedupingInterval: 0,
   refetchInterval: HOUR + 1,
@@ -22,7 +21,6 @@ export function useUserListPolling() {
   return useSWR('/posts', (url) => apiRequest<User[]>({ url, method: 'GET' }), {
     refreshInterval: 5000,
     keepPreviousData: true,
-    suspense: true,
   });
 }
 

@@ -1,6 +1,7 @@
+import { useErrors } from '@/components/error';
 import { RequestError } from '@/components/error/models/error-model';
 import { Box, Button, Spinner } from '@cloudscape-design/components';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode, Suspense, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 interface Props {
@@ -36,6 +37,16 @@ function ErrorComponent(props: { error: RequestError; resetErrorBoundary: () => 
 }
 
 export default function AppSuspense(props: Props) {
+  const { errors, setErrors } = useErrors();
+
+  useEffect(() => {
+    return () => {
+      if (errors.length > 0) {
+        setErrors([]);
+      }
+    };
+  }, [errors]);
+
   return (
     <ErrorBoundary fallbackRender={ErrorComponent}>
       <Suspense fallback={<AppProgress />}>{props.children}</Suspense>

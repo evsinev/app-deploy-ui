@@ -14,6 +14,7 @@ export default function ErrorWidget(props: ErrorMessageProps) {
 
   return (
     <Alert
+      dismissible
       onDismiss={onClose}
       type="error"
       header="Error"

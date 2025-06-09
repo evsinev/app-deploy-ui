@@ -44,6 +44,7 @@ export async function apiRequest<T>(props: ClientPostProps): Promise<T> {
       'content-type': 'application/json',
     },
     body,
+    signal: AbortSignal.timeout(20000),
   });
 
   if (response.status === 401) {

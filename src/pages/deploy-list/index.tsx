@@ -1,62 +1,26 @@
-import { AppStatusIndicator } from '@/components/app-status-indicator';
-import CloudLink from '@/components/cloud-link/cloud-link';
-import { DeployListItem, useRemoteDeployList } from '@/remote/deploy-remote';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { PROPERTY_FILTERS_QUERY_PARAM_KEY, parsePropertyFilterQuery, saveQueryFilter } from '@/libs/parse-property-filter';
+import { DEPLOY_LIST_COLUMN_DEFINITIONS, DEPLOY_LIST_FILTERING_PROPERTIES } from '@/pages/deploy-list/deploy-list-table-config';
+import { useRemoteDeployList } from '@/remote/deploy-remote';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { ContentLayout, Header, StatusIndicator } from '@cloudscape-design/components';
-import Table, { TableProps } from '@cloudscape-design/components/table';
-import routing from '@routing';
-
-const defaultSorting = { sorting: {} };
-
-const columnDefinitions: ReadonlyArray<TableProps.ColumnDefinition<DeployListItem>> = [
-  {
-    id: 'version',
-    header: 'Deploy',
-    cell: (it) => <CloudLink href={routing.deployLog.replace(':deployId', it.deployId)}>{`${it.oldVersion} ⮕ ${it.newVersion}`}</CloudLink>,
-    sortingField: 'newVersion',
-    isRowHeader: true,
-  },
-  {
-    id: 'statusIndicator',
-    header: 'Deploy Status',
-    cell: (it) => <StatusIndicator type={it.statusIndicator}>{it.statusErrorMessage?.substring(0, 30)}</StatusIndicator>,
-    sortingField: 'statusIndicator',
-    isRowHeader: true,
-  },
-  {
-    id: 'instanceArn',
-    header: 'App Instance',
-    cell: (it) => <CloudLink href={routing.appInstanceView.replace(':arn', it.instanceArn)}>{it.instanceName}</CloudLink>,
-    sortingField: 'instanceName',
-    isRowHeader: true,
-  },
-  {
-    id: 'app',
-    header: 'App',
-    cell: (it) => it.appId,
-    sortingField: 'appId',
-    isRowHeader: true,
-  },
-  {
-    id: 'envName',
-    header: 'Env',
-    cell: (it) => it.envName,
-    sortingField: 'envName',
-    isRowHeader: true,
-  },
-  {
-    id: 'appStatusIndicator',
-    header: 'Running Version',
-    cell: (it) => <AppStatusIndicator arn={it.instanceArn} />,
-    sortingField: 'instanceArn',
-    isRowHeader: true,
-  },
-];
+import { ContentLayout, Header, PropertyFilter, StatusIndicator } from '@cloudscape-design/components';
+import Table from '@cloudscape-design/components/table';
 
 export default function DeployListPage() {
   const { data: unsortedApps, isValidating } = useRemoteDeployList();
 
-  const { items: deploys, collectionProps } = useCollection(unsortedApps.deploys, defaultSorting);
+  const { getQueryParam, setQueryParam } = useQueryParams();
+  const {
+    items: deploys,
+    collectionProps,
+    propertyFilterProps,
+  } = useCollection(unsortedApps?.deploys || [], {
+    sorting: {},
+    propertyFiltering: {
+      filteringProperties: DEPLOY_LIST_FILTERING_PROPERTIES,
+      defaultQuery: parsePropertyFilterQuery(getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY)),
+    },
+  });
 
   return (
     <ContentLayout
@@ -71,8 +35,17 @@ export default function DeployListPage() {
     >
       <Table
         {...collectionProps}
-        columnDefinitions={columnDefinitions}
+        columnDefinitions={DEPLOY_LIST_COLUMN_DEFINITIONS}
         items={deploys}
+        filter={
+          <PropertyFilter
+            {...propertyFilterProps}
+            onChange={(event) => {
+              saveQueryFilter(event, setQueryParam);
+              propertyFilterProps.onChange(event);
+            }}
+          />
+        }
       />
     </ContentLayout>
   );

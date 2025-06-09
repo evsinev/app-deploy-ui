@@ -1,48 +1,25 @@
-import { AppStatusIndicator } from '@/components/app-status-indicator';
-import CloudLink from '@/components/cloud-link/cloud-link';
-import { AppInstanceItem, useRemoteAppList } from '@/remote/app-remote';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { PROPERTY_FILTERS_QUERY_PARAM_KEY, parsePropertyFilterQuery, saveQueryFilter } from '@/libs/parse-property-filter';
+import { APP_LIST_COLUMN_DEFINITIONS, APP_LIST_FILTERING_PROPERTIES } from '@/pages/app-instance-list/app-list-table-config';
+import { useRemoteAppList } from '@/remote/app-remote';
 import { useCollection } from '@cloudscape-design/collection-hooks';
-import { ContentLayout, Header, StatusIndicator } from '@cloudscape-design/components';
-import Table, { TableProps } from '@cloudscape-design/components/table';
-import routing from '@routing';
-
-const defaultSorting = { sorting: {} };
-
-const columnDefinitions: ReadonlyArray<TableProps.ColumnDefinition<AppInstanceItem>> = [
-  {
-    id: 'instancePath',
-    header: 'App Instance',
-    cell: (it) => <CloudLink href={routing.appInstanceView.replace(':arn', it.instanceArn)}>{it.instancePath}</CloudLink>,
-    sortingField: 'instancePath',
-    isRowHeader: true,
-  },
-  {
-    id: 'appStatusIndicator',
-    header: 'Running Version',
-    cell: (it) => <AppStatusIndicator arn={it.instanceArn} />,
-    sortingField: 'instanceArn',
-    isRowHeader: true,
-  },
-  {
-    id: 'app',
-    header: 'App',
-    cell: (it) => it.appId,
-    sortingField: 'appId',
-    isRowHeader: true,
-  },
-  {
-    id: 'envArn',
-    header: 'Env',
-    cell: (it) => it.envName,
-    sortingField: 'envName',
-    isRowHeader: true,
-  },
-];
+import { ContentLayout, Header, PropertyFilter, StatusIndicator } from '@cloudscape-design/components';
+import Table from '@cloudscape-design/components/table';
 
 export default function AppInstanceListPage() {
   const { data: unsortedApps, isValidating } = useRemoteAppList('');
-
-  const { items: apps, collectionProps } = useCollection(unsortedApps.apps, defaultSorting);
+  const { getQueryParam, setQueryParam } = useQueryParams();
+  const {
+    items: apps,
+    collectionProps,
+    propertyFilterProps,
+  } = useCollection(unsortedApps?.apps || [], {
+    sorting: {},
+    propertyFiltering: {
+      filteringProperties: APP_LIST_FILTERING_PROPERTIES,
+      defaultQuery: parsePropertyFilterQuery(getQueryParam(PROPERTY_FILTERS_QUERY_PARAM_KEY)),
+    },
+  });
 
   return (
     <ContentLayout
@@ -57,8 +34,17 @@ export default function AppInstanceListPage() {
     >
       <Table
         {...collectionProps}
-        columnDefinitions={columnDefinitions}
+        columnDefinitions={APP_LIST_COLUMN_DEFINITIONS}
         items={apps}
+        filter={
+          <PropertyFilter
+            {...propertyFilterProps}
+            onChange={(event) => {
+              saveQueryFilter(event, setQueryParam);
+              propertyFilterProps.onChange(event);
+            }}
+          />
+        }
       />
     </ContentLayout>
   );

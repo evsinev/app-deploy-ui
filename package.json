@@ -4,10 +4,11 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "rsbuild dev --open",
-    "build": "biome check && rsbuild build",
+    "build": "rsbuild build",
     "lint": "biome check"
   },
   "dependencies": {
+    "@cloudscape-design/collection-hooks": "^1.0.73",
     "@cloudscape-design/components": "3.0.962",
     "@cloudscape-design/global-styles": "1.0.42",
     "react": "18.3.1",

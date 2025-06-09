@@ -12,7 +12,8 @@
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "lineWidth": 180
+    "lineWidth": 180,
+    "lineEnding": "lf"
   },
   "organizeImports": {
     "enabled": true

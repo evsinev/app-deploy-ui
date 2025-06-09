@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "rsbuild dev --open",
     "build": "rsbuild build",
-    "lint": "biome check"
+    "lint": "biome check",
+    "format": "biome check --write"
   },
   "dependencies": {
     "@cloudscape-design/collection-hooks": "^1.0.73",

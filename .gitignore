@@ -12,3 +12,4 @@ dist/
 !.vscode/extensions.json
 .idea
 /tsconfig.tsbuildinfo
+app-deploy-shaded.jar

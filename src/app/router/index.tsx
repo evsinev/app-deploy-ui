@@ -1,5 +1,4 @@
 import routing from '@/app/router/config';
-import AppSuspense from '@/components/app-suspense';
 import AppList from '@/pages/app-instance-list';
 import AppView from '@/pages/app-instance-view';
 import Login from '@/pages/login';
@@ -16,59 +15,31 @@ export default function Router() {
     <Routes>
       <Route
         path={routing.login}
-        element={
-          <AppSuspense>
-            <Login />
-          </AppSuspense>
-        }
+        element={<Login />}
       />
       <Route
         path={routing.home}
-        element={
-          <AppSuspense>
-            <AppList />
-          </AppSuspense>
-        }
+        element={<AppList />}
       />
       <Route
         path={routing.appInstanceView}
-        element={
-          <AppSuspense>
-            <AppView />
-          </AppSuspense>
-        }
+        element={<AppView />}
       />
       <Route
         path={routing.deployList}
-        element={
-          <AppSuspense>
-            <DeployList />
-          </AppSuspense>
-        }
+        element={<DeployList />}
       />
       <Route
         path={routing.deployLog}
-        element={
-          <AppSuspense>
-            <DeployLog />
-          </AppSuspense>
-        }
+        element={<DeployLog />}
       />
       <Route
         path={routing.refresh}
-        element={
-          <AppSuspense>
-            <RefreshTest />
-          </AppSuspense>
-        }
+        element={<RefreshTest />}
       />
       <Route
         path={routing.form}
-        element={
-          <AppSuspense>
-            <TestForm />
-          </AppSuspense>
-        }
+        element={<TestForm />}
       />
       <Route
         path="*"

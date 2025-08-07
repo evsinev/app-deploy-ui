@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "rsbuild dev --open",
     "build": "rsbuild build",
-    "lint": "biome check",
+    "lint": "biome check && tsc --noEmit",
     "format": "biome check --write"
   },
   "dependencies": {
